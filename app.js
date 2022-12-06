@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const User = mongoose.model('user');
+mongoose.set('strictQuery', true);
 const auth = require("./authentication/auth");
 
 const app = express();

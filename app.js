@@ -68,7 +68,7 @@ app.post("/login", async (req, res) => {
 });
 //view data
 app.get('/userdata',auth,(req,res) =>{
-  User.findById(req.body._id, (err, docs)=>{
+  User.find((err, docs)=>{
       if(!err){
           res.send(docs);
       } else {
@@ -78,7 +78,7 @@ app.get('/userdata',auth,(req,res) =>{
 })
 //update everything except email
 app.post('/update',auth,(req,res) =>{
-  User.findOneAndUpdate({email: req.body.email}, { $set: {password: bcrypt.hashSync(req.body.password, 10),first_name:req.body.first_name,last_name:req.body.last_name} }, {new: true}, (err, doc) =>{
+  User.findOneAndUpdate({_id: req.user.user_id}, { $set: {password: bcrypt.hashSync(req.body.password, 10),first_name:req.body.first_name,last_name:req.body.last_name} }, {new: true}, (err, doc) =>{
     if(!err){
         res.status(201).json({msg:"Updated"});
     } else{
